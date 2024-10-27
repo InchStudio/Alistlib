@@ -39,6 +39,11 @@ jobs:
         run: |
           cd alist-ios
           sh ./fetch-web.sh
+          go install golang.org/x/mobile/cmd/gomobile@latest
+          go install golang.org/x/mobile/cmd/gobind@latest
+          go get golang.org/x/mobile/cmd/gomobile
+          go get golang.org/x/mobile/cmd/gobind
+          gomobile init
           gomobile bind -target ios -bundleid app.inch.Alistlib -o Alistlib.xcframework -ldflags "-s -w" github.com/alist-org/alist/v3/alistlib
 
           cp ../current/Template.plist Info.plist
