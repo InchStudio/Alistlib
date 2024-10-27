@@ -58,12 +58,12 @@ jobs:
           echo "CHECKSUM=$(swift package compute-checksum ./alist-ios/Alistlib.xcframework.zip)" >> $GITHUB_ENV
 
       - name: Update Package.swift
-        run: 
+        run: |
           cd current
-          VERSION=${{ ENV.VERSION }}
-          CHECKSUM=${{ ENV.CHECKSUM }}
-          sed -i "s/VERSION/${VERSION}/" Package.swift
-          sed -i "s/CHECKSUM/${CHECKSUM}/" Package.swift
+          DOWNLOAD_URL='https://github.com/InchStudio/Alistlib/releases/download/${{ env.VERSION }}/Alistlib.xcframework.zip'
+          CHECKSUM=${{ env.CHECKSUM }}
+          sed -i '' 's#\(url: "\).*\(",\)#\1${DOWNLOAD_URL}\2#' Package.swift
+          sed -i '' 's#\(checksum: "\).*\(".*\)#\1${CHECKSUM}\2#' Package.swift
 
       - name: Commit and push changes
         env:
@@ -91,4 +91,3 @@ jobs:
           artifacts: "alist-ios/Alistlib.xcframework.zip"
           token: ${{ secrets.USER_TOKEN }}
           tag: ${{ env.VERSION }}
-          
