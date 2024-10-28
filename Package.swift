@@ -14,8 +14,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Alistlib",
-            url: "${DOWNLOAD_URL}",
-            checksum: "${CHECKSUM}"
+            url: "https://github.com/InchStudio/Alistlib/releases/download/v1.0/Alistlib.xcframework.zip"
+            checksum: "f3f3e94b03edc1181935dad70bd56cc5b12d696ce37df0639e8167f5775dabd1"
         )
     ]
 )
