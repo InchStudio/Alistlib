@@ -56,8 +56,6 @@ jobs:
           cp Info.plist Alistlib.xcframework/ios-arm64_x86_64-simulator/Alistlib.framework/Info.plist
 
           zip -r -X "Alistlib.xcframework.zip" "Alistlib.xcframework"
-
-          cd ../
           
       - name: Compute Checksum
         run: |
@@ -75,6 +73,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cd current
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add Package.swift
