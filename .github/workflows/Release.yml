@@ -6,7 +6,7 @@ on:
       version:
         description: '输入版本号'
         required: true
-        default: 'v1.0'
+        default: 'v1.0.0'
 
 jobs:
   release:
