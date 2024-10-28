@@ -71,7 +71,7 @@ jobs:
           cd current
           DOWNLOAD_URL='https://github.com/InchStudio/Alistlib/releases/download/${{ env.VERSION }}/Alistlib.xcframework.zip'
           CHECKSUM=${{ env.CHECKSUM }}
-          sed -i '' "s#\(url: \".*\)#url: \"${DOWNLOAD_URL}\"#" Package.swift
+          sed -i '' "s#\(url: \".*\"\),#url: \"${DOWNLOAD_URL}\",#" Package.swift
           sed -i '' "s#\(checksum: \".*\)#checksum: \"${CHECKSUM}\"#" Package.swift
           
           git config --global user.name 'github-actions[bot]'
