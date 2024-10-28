@@ -34,7 +34,7 @@ jobs:
           repository: 'gendago/alist-ios'
           ref: 'main'
           path: 'alist-ios'
-          submodules: 'true'
+          submodules: true
       
       - name: Build Frameworks
         run: |
