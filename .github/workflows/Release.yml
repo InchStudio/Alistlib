@@ -1,9 +1,12 @@
 name: release xcframework
 
 on:
-  push:
-    tags:
-      - 'v*'
+ workflow_dispatch:
+    inputs:
+      version:
+        description: '输入版本号'
+        required: true
+        default: 'v1.0'
 
 jobs:
   release:
@@ -11,7 +14,7 @@ jobs:
     steps:
       - name: Get Version
         run: |
-          echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
           
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
