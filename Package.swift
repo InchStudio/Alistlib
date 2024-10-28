@@ -14,8 +14,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Alistlib",
-            url: "",
-            checksum: ""
+            url: "${DOWNLOAD_URL}",
+            checksum: "${CHECKSUM}"
         )
     ]
 )
