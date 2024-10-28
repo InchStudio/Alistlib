@@ -65,18 +65,15 @@ jobs:
           echo "CHECKSUM=$(swift package compute-checksum ./alist-ios/Alistlib.xcframework.zip)" >> $GITHUB_ENV
 
       - name: Update Package.swift
-        run: |
-          cd current
-          DOWNLOAD_URL='https://github.com/InchStudio/Alistlib/releases/download/${{ env.VERSION }}/Alistlib.xcframework.zip'
-          CHECKSUM=${{ env.CHECKSUM }}
-          sed -i '' 's#\(url: "\).*\(",\)#\1${DOWNLOAD_URL}\2#' Package.swift
-          sed -i '' 's#\(checksum: "\).*\(".*\)#\1${CHECKSUM}\2#' Package.swift
-
-      - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd current
+          DOWNLOAD_URL='https://github.com/InchStudio/Alistlib/releases/download/${{ env.VERSION }}/Alistlib.xcframework.zip'
+          CHECKSUM=${{ env.CHECKSUM }}
+          sed -i '' "s#\(url: "\).*\(",\)#\1${DOWNLOAD_URL}\2#" Package.swift
+          sed -i '' "s#\(checksum: "\).*\(".*\)#\1${CHECKSUM}\2#" Package.swift
+          
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add Package.swift
@@ -97,5 +94,5 @@ jobs:
             ```
           allowUpdates: true
           artifacts: "alist-ios/Alistlib.xcframework.zip"
-          token: ${{ secrets.USER_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.VERSION }}
