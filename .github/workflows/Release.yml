@@ -48,7 +48,7 @@ jobs:
           go get golang.org/x/mobile/cmd/gomobile
           go get golang.org/x/mobile/cmd/gobind
           gomobile init
-          gomobile bind -target ios -bundleid app.inch.Alistlib -o Alistlib.xcframework -ldflags "-s -w" github.com/alist-org/alist/v3/alistlib
+          gomobile bind -v -target ios -bundleid app.inch.Alistlib -o Alistlib.xcframework -ldflags "-s -w" github.com/alist-org/alist/v3/alistlib
 
           cp ../current/Template.plist Info.plist
           plutil -replace CFBundleShortVersionString -string ${{ ENV.VERSION }} Info.plist
@@ -71,8 +71,8 @@ jobs:
           cd current
           DOWNLOAD_URL='https://github.com/InchStudio/Alistlib/releases/download/${{ env.VERSION }}/Alistlib.xcframework.zip'
           CHECKSUM=${{ env.CHECKSUM }}
-          sed -i '' "s#\(url: "\).*\(",\)#\1${DOWNLOAD_URL}\2#" Package.swift
-          sed -i '' "s#\(checksum: "\).*\(".*\)#\1${CHECKSUM}\2#" Package.swift
+          sed -i '' "s#\(url: \".*\)#url: \"${DOWNLOAD_URL}\"#" Package.swift
+          sed -i '' "s#\(checksum: \".*\)#checksum: \"${CHECKSUM}\"#" Package.swift
           
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
